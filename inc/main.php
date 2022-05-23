@@ -6,7 +6,7 @@ ini_set("display_errors", 1);
 include_once('rezept.php');
 include_once('zutat.php');
 
-echo "<H1>Chefköchle</H1>";
+echo "<H1>Chefköchle VEM2021</H1>";
 
 $zutat = array();
 $zutat['Schweinehals'] = new TZutat('Schweinehals', 'Fleisch', 'g');
