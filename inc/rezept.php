@@ -29,7 +29,7 @@ class TRezept {
   }
     
   public function print($aAnzahl=0) {
-    echo "<H1>$this->Titel</H1>";
+    echo "<H1>Rezept: $this->Titel</H1>";
     if ($aAnzahl<=0) { $aAnzahl=$this->AnzahlPersonen; }
     echo "Rezept für $aAnzahl Person(en)<BR />";
     echo "Dauer: $this->Dauer<BR />";
