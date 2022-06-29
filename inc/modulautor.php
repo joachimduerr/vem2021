@@ -20,12 +20,14 @@ if ($action=='edit') {
 
 if ($showform) {
   ?>
+ <p>
 <form method="post" action="?" enctype="multipart/form-data">
 <input type="hidden" name="id" value="<?php echo $autor->id ?>" /> 
 <label for="autor">Autor: </label>
 <input type="text" name="autor" value="<?php echo $autor->autor ?>" /> 
 <input type="submit" value="Speichern" name="send" /> 
 </form>
+</p>
   <?php
   
 }
@@ -38,8 +40,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 $autoren = $dbh->getAutorenListe($suche);
 ?>
-<TABLE>
-<TR><TD>ID</TD><TD>Name</TD><TD><A HREF=?action=new>[new]</A></TD></TR>
+<TABLE border=1>
+<TR><TH>ID</TH><TH>Name</TH><TH><A HREF=?action=new>[new]</A></TH></TR>
 <?php
 foreach ($autoren as $autor) {
   ?>

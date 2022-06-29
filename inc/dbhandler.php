@@ -1,6 +1,7 @@
 <?php
 
 include_once('autor.php');
+include_once('zutat.php');
 
 class TDBHandler  {
   protected $dbh;
@@ -60,6 +61,57 @@ class TDBHandler  {
     $stmt->bindParam(':id', $id);
     $stmt->execute();
   }
+  
+  
+  
+  
+  public function getZutatenListe($suche='') {
+    $sql = "SELECT id, einheit, zutat, art FROM zutat WHERE zutat LIKE :suche";
+    $stmt = $this->dbh->prepare($sql);
+    $stmt->bindParam(':suche', $suche);
+    $stmt->execute();
+    $results = $stmt->fetchAll(); 
+    $zutaten = array();
+    foreach ($results as $result) {
+      $zutat = new TZutat($result['id'], $result['zutat'], $result['art'], $result['einheit']);
+      $zutaten[$zutat->id] = $zutat;
+    } 
+    return $zutaten;
+  }
+
+  public function getZutat($id) {
+    $sql = "SELECT  id, einheit, zutat, art FROM zutat WHERE id=:id";
+    $stmt = $this->dbh->prepare($sql);
+    $stmt->bindParam(':id', $id);
+    $stmt->execute();
+    $results = $stmt->fetchAll();
+    $result = reset($results); 
+    $zutat = new TZutat($result['id'], $result['zutat'], $result['art'], $result['einheit']);
+    return $zutat;
+  }
+
+  public function saveZutat($zutat) {
+    if ($zutat->id>0) {
+      $sql = "REPLACE INTO zutat(id, einheit, zutat, art) VALUES(:id, :einheit, :zutat, :art)";
+      $stmt = $this->dbh->prepare($sql);
+      $stmt->bindParam(':id', $zutat->id);
+    } else {
+      $sql = "INSERT INTO zutat(einheit, zutat, art) VALUES(:einheit, :zutat, :art)";
+      $stmt = $this->dbh->prepare($sql);
+    }
+    $stmt->bindParam(':einheit', $zutat->einheit);
+    $stmt->bindParam(':zutat', $zutat->zutat);
+    $stmt->bindParam(':art', $zutat->art);
+    $stmt->execute();
+  }
+  
+  public function deleteZutat($id) {
+    $sql = "DELETE FROM zutat WHERE id=:id";
+    $stmt = $this->dbh->prepare($sql);
+    $stmt->bindParam(':id', $id);
+    $stmt->execute();
+  }
+  
 }
 
 ?>

@@ -20,7 +20,9 @@ $_SESSION['modul'] = $_REQUEST['modul']??$_SESSION['modul']??'rezept';
 
 if ($_SESSION['modul'] == 'autor') {
   include('modulautor.php');
-} else {
+} else if ($_SESSION['modul']=='zutat') {
+  include('modulzutat.php');
+}else {
   //Default: rezept  
   include('modulrezept.php');
 }
