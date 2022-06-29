@@ -1,5 +1,5 @@
 <?php
-
+  
 class TZutat {
   public $id;
   public $einheit;
